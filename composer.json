@@ -1,0 +1,29 @@
+{
+    "name": "riak-client",
+    "type": "library",
+    "description": "Riak client",
+    "keywords": ["persistence", "riak"],
+    "homepage": "http://wiki.basho.com/Riak.html",
+    "license": "Apache 2.0",
+    "authors": [
+        {"name": "Kevin Burns"},
+        {"name": "Jeffrey Massung"},
+        {"name": "Mark Phillips"},
+        {"name": "Bryank Fink"},
+        {"name": "Abel Perez"},
+        {"name": "Scoyy Lystig Fritchie"},
+        {"name": "Jon Meredith"},
+        {"name": "dreverri"},
+        {"name": "fakepop"},
+        {"name": "Nacho Martín", "email": "nitram.ohcan@gmail.com"}
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "Riak": "lib/"
+        }
+    }
+}
+

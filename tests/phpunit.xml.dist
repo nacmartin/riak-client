@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="true"
+         strict="true"
+         bootstrap="TestInit.php">
+    <php>
+        <var name="RIAK_HOST" value="localhost" />
+        <var name="RIAK_PORT" value="8091" />
+    </php>
+
+
+    <testsuites>
+        <testsuite name="Riak Client Test Suite">
+            <directory>./</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
