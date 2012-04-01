@@ -1,5 +1,5 @@
 {
-    "name": "riak-client",
+    "name": "riak/riak-client",
     "type": "library",
     "description": "Riak client",
     "keywords": ["persistence", "riak"],
