@@ -12,7 +12,6 @@ use Riak\Object;
 use Riak\StringIO;
 use Riak\Utils;
 
-define('$GLOBALS['RIAK_PORT']', 8091);
 
 class AllTest extends \PHPUnit_Framework_TestCase
 {
