@@ -20,6 +20,7 @@ class MapReduce {
         $this->inputs = array();
         $this->input_mode = NULL;
         $this->key_filters = array();
+        $this->index = array();
     }
 
     /**
@@ -204,6 +205,36 @@ class MapReduce {
             ));
         } else {
             $this->key_filters = $filters;
+        }
+        return $this;
+    }
+
+    /**
+     * Performs an index search as part of a Map/Reduce operation
+     * Note that you can only do index searches on a bucket, so
+     * this is incompatible with object or key operations, as well
+     * as key filter operations.
+     * @param string $indexName The name of the index to search.
+     * @param string $indexType The index type ('bin' or 'int')
+     * @param string|int $startOrExact Start value to search for, or
+     * exact value if no end value specified.
+     * @param string|int optional $end End value to search for during
+     * a range search
+     * @return $this
+     */
+    public function indexSearch($indexName, $indexType, $startOrExact, $end = NULL)
+    {
+        if ($end === NULL) {
+            $this->index = array(
+                'index' => "{$indexName}_{$indexType}",
+                'key' => urlencode($startOrExact)
+            );
+        } else {
+            $this->index = array(
+                'index' => "{$indexName}_{$indexType}",
+                'start' => urlencode($startOrExact),
+                'end' => urlencode($end)
+            );
         }
         return $this;
     }
