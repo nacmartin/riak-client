@@ -20,6 +20,7 @@ class MapReduce {
         $this->inputs = array();
         $this->input_mode = NULL;
         $this->key_filters = array();
+        $this->index = array();
     }
 
     /**
@@ -209,6 +210,36 @@ class MapReduce {
     }
 
     /**
+     * Performs an index search as part of a Map/Reduce operation
+     * Note that you can only do index searches on a bucket, so
+     * this is incompatible with object or key operations, as well
+     * as key filter operations.
+     * @param string $indexName The name of the index to search.
+     * @param string $indexType The index type ('bin' or 'int')
+     * @param string|int $startOrExact Start value to search for, or
+     * exact value if no end value specified.
+     * @param string|int optional $end End value to search for during
+     * a range search
+     * @return $this
+     */
+    public function indexSearch($indexName, $indexType, $startOrExact, $end = NULL)
+    {
+        if ($end === NULL) {
+            $this->index = array(
+                'index' => "{$indexName}_{$indexType}",
+                'key' => urlencode($startOrExact)
+            );
+        } else {
+            $this->index = array(
+                'index' => "{$indexName}_{$indexType}",
+                'start' => urlencode($startOrExact),
+                'end' => urlencode($end)
+            );
+        }
+        return $this;
+    }
+
+    /**
      * Run the map/reduce operation. Returns an array of results, or an
      * array of Link objects if the last phase is a link phase.
      * @param integer $timeout - Timeout in seconds.
@@ -254,7 +285,7 @@ class MapReduce {
 
         # Do the request...
         $url = "http://" . $this->client->host . ":" . $this->client->port . "/" . $this->client->mapred_prefix;
-        $response = Utils::httpRequest('POST', $url, array(), $content);
+        $response = Utils::httpRequest('POST', $url, array('Content-type: application/json'), $content);
         $result = json_decode($response[1]);
 
         # If the last phase is NOT a link phase, then return the result.
