@@ -1,5 +1,6 @@
 {
     "name": "riak/riak-client",
+    "abandoned": "basho/riak",
     "type": "library",
     "description": "Riak client",
     "keywords": ["persistence", "riak"],
